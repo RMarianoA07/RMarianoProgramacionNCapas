@@ -1,0 +1,255 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 pb-2">
+                @Html.ActionLink("<= Regresar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
+            </div>
+            @if (Model.IdUsuario == 0)
+            {
+                <div class="col-md-6 col-sm-12 pt-2 alert alert-primary" role="alert">
+                    Agregar usuario
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 col-sm-12 pt-2 alert alert-primary" role="alert">
+                    Editar usuario
+                </div>
+            }
+
+            <div class="col-md-3"></div>
+        </div>
+        @using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Información del usuario</div>
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.HiddenFor(model => model.IdUsuario)
+                                <div class="col-md-6 col-sm-12 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spUserName">UserName</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spPassword">Password</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12 p-2 mt-md-2">
+                                        @Html.LabelFor(model => model.Nombre)
+                                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+                                    </div>
+                                    <div class="col-md-4 col-sm-12 p-2 mt-md-2">
+                                        @Html.LabelFor(model => model.ApellidoPaterno)
+                                        @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido Paterno" })
+                                    </div>
+                                    <div class="col-md-4 p-2 mt-md-2">
+                                        @Html.LabelFor(model => model.ApellidoMaterno)
+                                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @placeholder = "Apellido Materno" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spEmail">Email</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Correo" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spEmail">Repeat</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Repite el correo" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spEmail">Date</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @placeholder = "28/07/2025" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    @Html.LabelFor(model => model.Sexo)
+                                    <div class="col">
+                                        @Html.RadioButtonFor(model => model.Sexo, "H") Hombre
+                                        @Html.RadioButtonFor(model => model.Sexo, "M") Mujer
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spTelefono">Telefono</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @maxlength = "10" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spCelular">Celular</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Celular, new { @class = "form-control", @maxlength = "10" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spCURP">CURP</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.CURP, new { @class = "form-control", @maxlength = "18" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2 mt-md-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spRol">Rol</span>
+                                        </div>
+                                        @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Seleccione un rol", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Imagenes Usuario</div>
+                        <div class="card-body">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label asp-for="UploadedFile"></label>
+                                    <input class="form-control" type="file" name="imgUsuarioInput" onchange="PrevisualizarImagen(event)" />
+                                </div>
+                            </div>
+                            @Html.TextBoxFor(model => model.ImagenUsuario.Descripcion, new { placeholder = "Ingresa la descripción de la imagen", @class = "form-control" })
+
+                            <div class="col-md-12 mt-3 mb-3" style="display: flex; justify-content: center;">
+                                <img src="~/Img/default_image.png" id="imgUsuario" height="100" />
+                            </div>
+                            <div class="col-md-12 mt-3 mb-3">
+
+                                <button type="submit" value="CargarImagen" name="Action" class="btn btn-info col-md-6 ph-1 pv-3 offset-3">Agregar imagen</button>
+
+                            </div>
+
+                            @if (Model.ImagenUsuario.ImagenesUsuarios != null && Model.ImagenUsuario.ImagenesUsuarios.Count > 0)
+                            {
+                                <table class="table table-hover form-control">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Archivo</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (ML.ImagenUsuario imagenUsuario in Model.ImagenUsuario.ImagenesUsuarios)
+                                        {
+                                            <tr>
+                                                <td>@imagenUsuario.Nombre</td>
+                                                <td>@imagenUsuario.Descripcion</td>
+                                                <td>
+                                                    @if (imagenUsuario.Imagen != null)
+                                                    {
+                                                        var base64String = Convert.ToBase64String(imagenUsuario.Imagen);
+                                                        <img id="ItemPreview" src="data:image/png;base64,@base64String" width="50" height="50" />
+                                                    }
+                                                </td>
+
+                                                <td>
+                                                    <a href="@Url.Action("DeleteImage", "Usuario", new { IdUsuario = Model.IdUsuario, IdImagenUsuario = imagenUsuario.IdImagenUsuario, IdImagenUsuarioT = imagenUsuario.IdImagenUsuarioT })" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar la imagen?')">
+                                                        <i class="bi bi-trash"></i>
+                                                        Eliminar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header">Dirección</div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.HiddenFor(model => model.Direccion.IdDireccion)
+                                    <div class="col-md-2 p-2 mt-md-2">
+                                        @Html.LabelFor(model => model.Direccion.Calle, new { style = "font-weight: bold;" })
+                                        @Html.TextBoxFor(model => model.Direccion.Calle, new { @class = "form-control", @id = "txtCalle" })
+                                    </div>
+                                    <div class="col-md-2 p-2 mt-md-2">
+                                        @Html.LabelFor(model => model.Direccion.NumeroExterior, new { style = "font-weight: bold;" })
+                                        @Html.TextBoxFor(model => model.Direccion.NumeroExterior, new { @class = "form-control", @id = "txtNumeroExterior" })
+                                    </div>
+                                    <div class="col-md-2 p-2 mt-md-2">
+                                        @Html.LabelFor(model => model.Direccion.NumeroInterior, new { style = "font-weight: bold;" })
+                                        @Html.TextBoxFor(model => model.Direccion.NumeroInterior, new { @class = "form-control", @id = "txtNumeroInterior" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-3 p-2 mt-md-2">
+                                                @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Estado, new { style = "font-weight: bold;" })
+                                                @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Estados, "IdEstado", "Nombre"), "-Estado-", new { @value = 0, @class = "form-control", @id = "ddlEstado" })
+                                            </div>
+
+                                            <div class="col-md-3 p-2 mt-md-2">
+                                                @Html.LabelFor(model => model.Direccion.Colonia.Municipio, new { style = "font-weight: bold;" })
+                                                @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(Model.Direccion.Colonia.Municipio.Municipios, "IdMunicipio", "Nombre"), "-Municipio-", new { @class = "form-control", @id = "ddlMunicipio" })
+                                            </div>
+                                            <div class="col-md-3 p-2 mt-md-2">
+                                                @Html.LabelFor(model => model.Direccion.Colonia, new { style = "font-weight: bold;" })
+                                                @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia, new SelectList(Model.Direccion.Colonia.Colonias, "IdColonia", "Nombre"), "-Colonia-", new { @class = "form-control", @id = "ddlColonia" })
+                                            </div>
+                                            <div class="col-md-3 p-2 mt-md-2">
+                                                @Html.LabelFor(model => model.Direccion.Colonia.CodigoPostal, new { style = "font-weight: bold;" })
+                                                @Html.TextBoxFor(model => model.Direccion.Colonia.CodigoPostal, new { @class = "form-control", @id = "txtCodigoPostal" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 p-5">
+                    <button type="submit" value="AgregarUsuario" name="Action" class="btn btn-success col-md-12 ph-1 pv-3">Guardar</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        }
+    </div>
+
+    <script src="~/Scripts/Usuario/Imagen/Imagen.js"></script>
+    <script src="~/Scripts/Usuario/DropDownList/DropDownList.js" type="text/javascript"></script>
+}
+
+

@@ -1,0 +1,947 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RMarianoProgramacionNCapasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Colonia">
+          <Key>
+            <PropertyRef Name="IdColonia" />
+          </Key>
+          <Property Name="IdColonia" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdMunicipio" Type="int" />
+        </EntityType>
+        <EntityType Name="Direccion">
+          <Key>
+            <PropertyRef Name="IdDireccion" />
+          </Key>
+          <Property Name="IdDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumeroInterior" Type="varchar" MaxLength="20" />
+          <Property Name="NumeroExterior" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IdColonia" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ImagenUsuario">
+          <Key>
+            <PropertyRef Name="IdImagenUsuario" />
+          </Key>
+          <Property Name="IdImagenUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Imagen" Type="varbinary(max)" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Municipio">
+          <Key>
+            <PropertyRef Name="IdMunicipio" />
+          </Key>
+          <Property Name="IdMunicipio" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="IdEstado" Type="int" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sexo" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Celular" Type="varchar" MaxLength="20" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="CURP" Type="varchar" MaxLength="50" />
+          <Property Name="IdRol" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VWUsuarioGetAll">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="NombreUsuario" />
+            <PropertyRef Name="ApellidoPaterno" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Sexo" />
+            <PropertyRef Name="Telefono" />
+            <PropertyRef Name="IdRol" />
+            <PropertyRef Name="NombreRol" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sexo" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Celular" Type="varchar" MaxLength="20" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="CURP" Type="varchar" MaxLength="50" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="NombreRol" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Colonia__IdMunic__2B3F6F97">
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+          <End Role="Colonia" Type="Self.Colonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipio">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="Colonia">
+              <PropertyRef Name="IdMunicipio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Direccion__IdCol__2E1BDC42">
+          <End Role="Colonia" Type="Self.Colonia" Multiplicity="0..1" />
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colonia">
+              <PropertyRef Name="IdColonia" />
+            </Principal>
+            <Dependent Role="Direccion">
+              <PropertyRef Name="IdColonia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Direccion__IdUsu__2F10007B">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Direccion">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImagenUsu__IdUsu__1B0907CE">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="ImagenUsuario" Type="Self.ImagenUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="ImagenUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Municipio__IdEst__286302EC">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Municipio">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ColoniaGetByIdMunicipio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMunicipio" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DireccionAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Calle" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroInterior" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroExterior" Type="varchar" Mode="In" />
+          <Parameter Name="IdColonia" Type="int" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DireccionGetByIdUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DireccionUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDireccion" Type="int" Mode="In" />
+          <Parameter Name="Calle" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroInterior" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroExterior" Type="varchar" Mode="In" />
+          <Parameter Name="IdColonia" Type="int" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EliminarAcentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="Texto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="EstadoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="MunicipioGetByIdEstado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEstado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Sexo" Type="char" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Celular" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="CURP" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetAllDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetAllVW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Sexo" Type="char" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Celular" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="CURP" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="RMarianoProgramacionNCapasModelStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Colonia" EntityType="Self.Colonia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImagenUsuario" EntityType="Self.ImagenUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Municipio" EntityType="Self.Municipio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VWUsuarioGetAll" EntityType="Self.VWUsuarioGetAll" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VWUsuarioGetAll].[IdUsuario] AS [IdUsuario], 
+    [VWUsuarioGetAll].[UserName] AS [UserName], 
+    [VWUsuarioGetAll].[NombreUsuario] AS [NombreUsuario], 
+    [VWUsuarioGetAll].[ApellidoPaterno] AS [ApellidoPaterno], 
+    [VWUsuarioGetAll].[ApellidoMaterno] AS [ApellidoMaterno], 
+    [VWUsuarioGetAll].[Email] AS [Email], 
+    [VWUsuarioGetAll].[Password] AS [Password], 
+    [VWUsuarioGetAll].[Sexo] AS [Sexo], 
+    [VWUsuarioGetAll].[Telefono] AS [Telefono], 
+    [VWUsuarioGetAll].[Celular] AS [Celular], 
+    [VWUsuarioGetAll].[FechaNacimiento] AS [FechaNacimiento], 
+    [VWUsuarioGetAll].[CURP] AS [CURP], 
+    [VWUsuarioGetAll].[IdRol] AS [IdRol], 
+    [VWUsuarioGetAll].[NombreRol] AS [NombreRol]
+    FROM [dbo].[VWUsuarioGetAll] AS [VWUsuarioGetAll]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Colonia__IdMunic__2B3F6F97" Association="Self.FK__Colonia__IdMunic__2B3F6F97">
+            <End Role="Municipio" EntitySet="Municipio" />
+            <End Role="Colonia" EntitySet="Colonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Direccion__IdCol__2E1BDC42" Association="Self.FK__Direccion__IdCol__2E1BDC42">
+            <End Role="Colonia" EntitySet="Colonia" />
+            <End Role="Direccion" EntitySet="Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Direccion__IdUsu__2F10007B" Association="Self.FK__Direccion__IdUsu__2F10007B">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Direccion" EntitySet="Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImagenUsu__IdUsu__1B0907CE" Association="Self.FK__ImagenUsu__IdUsu__1B0907CE">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ImagenUsuario" EntitySet="ImagenUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Municipio__IdEst__286302EC" Association="Self.FK__Municipio__IdEst__286302EC">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Municipio" EntitySet="Municipio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RMarianoProgramacionNCapasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Colonia">
+          <Key>
+            <PropertyRef Name="IdColonia" />
+          </Key>
+          <Property Name="IdColonia" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdMunicipio" Type="Int32" />
+          <NavigationProperty Name="Municipio" Relationship="Self.FK__Colonia__IdMunic__2B3F6F97" FromRole="Colonia" ToRole="Municipio" />
+          <NavigationProperty Name="Direccions" Relationship="Self.FK__Direccion__IdCol__2E1BDC42" FromRole="Colonia" ToRole="Direccion" />
+        </EntityType>
+        <EntityType Name="Direccion">
+          <Key>
+            <PropertyRef Name="IdDireccion" />
+          </Key>
+          <Property Name="IdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroInterior" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroExterior" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdColonia" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="Colonia" Relationship="Self.FK__Direccion__IdCol__2E1BDC42" FromRole="Direccion" ToRole="Colonia" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Direccion__IdUsu__2F10007B" FromRole="Direccion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Municipios" Relationship="Self.FK__Municipio__IdEst__286302EC" FromRole="Estado" ToRole="Municipio" />
+        </EntityType>
+        <EntityType Name="ImagenUsuario">
+          <Key>
+            <PropertyRef Name="IdImagenUsuario" />
+          </Key>
+          <Property Name="IdImagenUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__ImagenUsu__IdUsu__1B0907CE" FromRole="ImagenUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Municipio">
+          <Key>
+            <PropertyRef Name="IdMunicipio" />
+          </Key>
+          <Property Name="IdMunicipio" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstado" Type="Int32" />
+          <NavigationProperty Name="Colonias" Relationship="Self.FK__Colonia__IdMunic__2B3F6F97" FromRole="Municipio" ToRole="Colonia" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__Municipio__IdEst__286302EC" FromRole="Municipio" ToRole="Estado" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sexo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="CURP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRol" Type="Int32" />
+          <NavigationProperty Name="Direccions" Relationship="Self.FK__Direccion__IdUsu__2F10007B" FromRole="Usuario" ToRole="Direccion" />
+          <NavigationProperty Name="ImagenUsuarios" Relationship="Self.FK__ImagenUsu__IdUsu__1B0907CE" FromRole="Usuario" ToRole="ImagenUsuario" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="VWUsuarioGetAll">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="NombreUsuario" />
+            <PropertyRef Name="ApellidoPaterno" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Sexo" />
+            <PropertyRef Name="Telefono" />
+            <PropertyRef Name="IdRol" />
+            <PropertyRef Name="NombreRol" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sexo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="CURP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="NombreRol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Colonia__IdMunic__2B3F6F97">
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+          <End Role="Colonia" Type="Self.Colonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipio">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="Colonia">
+              <PropertyRef Name="IdMunicipio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Direccion__IdCol__2E1BDC42">
+          <End Role="Colonia" Type="Self.Colonia" Multiplicity="0..1" />
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colonia">
+              <PropertyRef Name="IdColonia" />
+            </Principal>
+            <Dependent Role="Direccion">
+              <PropertyRef Name="IdColonia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Direccion__IdUsu__2F10007B">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Direccion">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Municipio__IdEst__286302EC">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Municipio">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImagenUsu__IdUsu__1B0907CE">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="ImagenUsuario" Type="Self.ImagenUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="ImagenUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RMarianoProgramacionNCapasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
+          <EntitySet Name="Colonias" EntityType="Self.Colonia" />
+          <EntitySet Name="Direccions" EntityType="Self.Direccion" />
+          <EntitySet Name="Estadoes" EntityType="Self.Estado" />
+          <EntitySet Name="ImagenUsuarios" EntityType="Self.ImagenUsuario" />
+          <EntitySet Name="Municipios" EntityType="Self.Municipio" />
+          <EntitySet Name="Rols" EntityType="Self.Rol" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="VWUsuarioGetAlls" EntityType="Self.VWUsuarioGetAll" />
+          <AssociationSet Name="FK__Colonia__IdMunic__2B3F6F97" Association="Self.FK__Colonia__IdMunic__2B3F6F97">
+            <End Role="Municipio" EntitySet="Municipios" />
+            <End Role="Colonia" EntitySet="Colonias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Direccion__IdCol__2E1BDC42" Association="Self.FK__Direccion__IdCol__2E1BDC42">
+            <End Role="Colonia" EntitySet="Colonias" />
+            <End Role="Direccion" EntitySet="Direccions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Direccion__IdUsu__2F10007B" Association="Self.FK__Direccion__IdUsu__2F10007B">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Direccion" EntitySet="Direccions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Municipio__IdEst__286302EC" Association="Self.FK__Municipio__IdEst__286302EC">
+            <End Role="Estado" EntitySet="Estadoes" />
+            <End Role="Municipio" EntitySet="Municipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImagenUsu__IdUsu__1B0907CE" Association="Self.FK__ImagenUsu__IdUsu__1B0907CE">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="ImagenUsuario" EntitySet="ImagenUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rols" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <FunctionImport Name="ColoniaGetByIdMunicipio" ReturnType="Collection(RMarianoProgramacionNCapasModel.ColoniaGetByIdMunicipio_Result)">
+            <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DireccionAdd">
+            <Parameter Name="Calle" Mode="In" Type="String" />
+            <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+            <Parameter Name="NumeroExterior" Mode="In" Type="String" />
+            <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DireccionGetByIdUsuario" ReturnType="Collection(RMarianoProgramacionNCapasModel.DireccionGetByIdUsuario_Result)">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DireccionUpdate">
+            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+            <Parameter Name="Calle" Mode="In" Type="String" />
+            <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+            <Parameter Name="NumeroExterior" Mode="In" Type="String" />
+            <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EstadoGetAll" ReturnType="Collection(RMarianoProgramacionNCapasModel.EstadoGetAll_Result)" />
+          <FunctionImport Name="MunicipioGetByIdEstado" ReturnType="Collection(RMarianoProgramacionNCapasModel.MunicipioGetByIdEstado_Result)">
+            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioAdd">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Celular" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+            <Parameter Name="CURP" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioDelete">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(RMarianoProgramacionNCapasModel.UsuarioGetAll_Result)">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAllDynamic">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAllVW" ReturnType="Collection(RMarianoProgramacionNCapasModel.UsuarioGetAllVW_Result)">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetById" ReturnType="Collection(RMarianoProgramacionNCapasModel.UsuarioGetById_Result)">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioUpdate">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Celular" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+            <Parameter Name="CURP" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ColoniaGetByIdMunicipio_Result">
+          <Property Type="Int32" Name="IdColonia" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdMunicipio" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DireccionGetByIdUsuario_Result">
+          <Property Type="Int32" Name="IdDireccion" Nullable="false" />
+          <Property Type="String" Name="Calle" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NumeroInterior" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NumeroExterior" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="true" />
+          <Property Type="Int32" Name="IdColonia" Nullable="true" />
+          <Property Type="String" Name="NombreColonia" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+          <Property Type="String" Name="NombreMunicipio" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdEstado" Nullable="false" />
+          <Property Type="String" Name="NombreEstado" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="EstadoGetAll_Result">
+          <Property Type="Int32" Name="IdEstado" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="MunicipioGetByIdEstado_Result">
+          <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdEstado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetAll_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FechaNacimiento" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetAllVW_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FechaNacimiento" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+          <Property Type="String" Name="NombreRol" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RMarianoProgramacionNCapasModelStoreContainer" CdmEntityContainer="RMarianoProgramacionNCapasEntities">
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colonias">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.Colonia">
+              <MappingFragment StoreEntitySet="Colonia">
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Direccions">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.Direccion">
+              <MappingFragment StoreEntitySet="Direccion">
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="NumeroInterior" ColumnName="NumeroInterior" />
+                <ScalarProperty Name="NumeroExterior" ColumnName="NumeroExterior" />
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estadoes">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImagenUsuarios">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.ImagenUsuario">
+              <MappingFragment StoreEntitySet="ImagenUsuario">
+                <ScalarProperty Name="IdImagenUsuario" ColumnName="IdImagenUsuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Municipios">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.Municipio">
+              <MappingFragment StoreEntitySet="Municipio">
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rols">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWUsuarioGetAlls">
+            <EntityTypeMapping TypeName="RMarianoProgramacionNCapasModel.VWUsuarioGetAll">
+              <MappingFragment StoreEntitySet="VWUsuarioGetAll">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ColoniaGetByIdMunicipio" FunctionName="RMarianoProgramacionNCapasModel.Store.ColoniaGetByIdMunicipio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.ColoniaGetByIdMunicipio_Result">
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DireccionAdd" FunctionName="RMarianoProgramacionNCapasModel.Store.DireccionAdd" />
+          <FunctionImportMapping FunctionImportName="DireccionGetByIdUsuario" FunctionName="RMarianoProgramacionNCapasModel.Store.DireccionGetByIdUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.DireccionGetByIdUsuario_Result">
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="NumeroInterior" ColumnName="NumeroInterior" />
+                <ScalarProperty Name="NumeroExterior" ColumnName="NumeroExterior" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+                <ScalarProperty Name="NombreColonia" ColumnName="NombreColonia" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="NombreMunicipio" ColumnName="NombreMunicipio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DireccionUpdate" FunctionName="RMarianoProgramacionNCapasModel.Store.DireccionUpdate" />
+          <FunctionImportMapping FunctionImportName="EstadoGetAll" FunctionName="RMarianoProgramacionNCapasModel.Store.EstadoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.EstadoGetAll_Result">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MunicipioGetByIdEstado" FunctionName="RMarianoProgramacionNCapasModel.Store.MunicipioGetByIdEstado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.MunicipioGetByIdEstado_Result">
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioAdd" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioAdd" />
+          <FunctionImportMapping FunctionImportName="UsuarioDelete" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioDelete" />
+          <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.UsuarioGetAll_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetAllDynamic" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioGetAllDynamic" />
+          <FunctionImportMapping FunctionImportName="UsuarioGetAllVW" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioGetAllVW">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.UsuarioGetAllVW_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetById" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMarianoProgramacionNCapasModel.UsuarioGetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioUpdate" FunctionName="RMarianoProgramacionNCapasModel.Store.UsuarioUpdate" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest();
+        
+    }
+}
+
+<form action="" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend> Upload Image </legend>
+        <label for="Image">Image</label>
+        <input class="btn-info" type="file" name="Image" />
+        <br />
+        <input class="btn-info" type="submit" value="Upload" />
+    </fieldset>
+</form>
+<h1>Uploaded Image</h1>
+@if (imagePath != "")
+{
+    <div class="result">
+        <img src="@imagePath" alt="image" />
+
+    </div>
+}
+
