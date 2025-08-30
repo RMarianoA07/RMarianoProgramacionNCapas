@@ -1,6 +1,11 @@
-﻿using System;
+﻿using ML;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,7 +17,7 @@ namespace PL_MVC.Controllers
         public ActionResult GetAll()
         {
             ML.Usuario usuario = new ML.Usuario();
-            ML.Result result = BL.Usuario.GetAllEF();
+            ML.Result result = BL.Usuario.GetAllREST();
             if (result.Correct)
             {
                 usuario.Usuarios = result.Objects;
@@ -21,6 +26,7 @@ namespace PL_MVC.Controllers
             {
                 ViewBag.Mensaje = "Sin resultados";
             }
+
 
             return View(usuario);
         }
@@ -85,7 +91,7 @@ namespace PL_MVC.Controllers
                 }
                 else
                 {
-                    ML.Result result = BL.Usuario.GetByIdLinq(IdUsuario.Value);
+                    ML.Result result = BL.Usuario.GetByIdREST(IdUsuario.Value);
                     if (result.Correct)
                     {
                         usuario = (ML.Usuario)result.Object;

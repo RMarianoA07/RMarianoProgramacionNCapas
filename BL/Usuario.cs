@@ -1,9 +1,14 @@
 ﻿using DL_EF;
+using ML;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace BL
 {
@@ -205,7 +210,7 @@ namespace BL
                     DataTable dataTable = new DataTable();
 
                     adapter.Fill(dataTable);
-                    
+
                     if (dataTable.Rows.Count > 0)
                     {
                         DataRow row = dataTable.Rows[0];
@@ -227,7 +232,7 @@ namespace BL
                                 IdRol = Convert.ToInt32(row["IdRol"])
                             }
                         };
-                        
+
                         result.Object = usuario;
                         result.Correct = true;
                     }
@@ -278,7 +283,7 @@ namespace BL
                     }
                 }
 
-                
+
             }
             catch (Exception ex)
             {
@@ -324,7 +329,7 @@ namespace BL
                             result.Objects.Add(usuario);
                         }
                         result.Correct = true;
-                    } 
+                    }
                     else {
                         result.Correct = false;
                         result.ErrorMessage = "No se encontraron usuarios";
@@ -432,7 +437,7 @@ namespace BL
             try
             {
                 using (RMarianoProgramacionNCapasEntities context = new RMarianoProgramacionNCapasEntities())
-                {   
+                {
                     int NoFilas = context.UsuarioDelete(idUsuario: IdUsuario);
 
                     if (NoFilas > 0)
@@ -455,14 +460,14 @@ namespace BL
         }
         public static List<ML.Rol> GetRols()
         {
-            List<ML.Rol> listRols = new List<ML.Rol>(); 
-            using(RMarianoProgramacionNCapasEntities context = new RMarianoProgramacionNCapasEntities())
+            List<ML.Rol> listRols = new List<ML.Rol>();
+            using (RMarianoProgramacionNCapasEntities context = new RMarianoProgramacionNCapasEntities())
             {
                 var query = from r in context.Rols
                             select r;
-                if(query != null & query.ToList().Count > 0)
+                if (query != null & query.ToList().Count > 0)
                 {
-                    foreach (var r in query.ToList()) 
+                    foreach (var r in query.ToList())
                     {
                         ML.Rol rol = new ML.Rol
                         {
@@ -488,6 +493,7 @@ namespace BL
                                 select new
                                 {
                                     u.IdUsuario,
+                                    NombreUsuario = u.Nombre,
                                     u.UserName,
                                     u.ApellidoPaterno,
                                     u.ApellidoMaterno,
@@ -499,39 +505,45 @@ namespace BL
                                     u.FechaNacimiento,
                                     u.CURP,
                                     r.IdRol,
-                                    r.Nombre
+                                    NombreRol = r.Nombre
                                 };
-                    if(query != null && query.ToList().Count > 0)
+                    if (query != null && query.ToList().Count > 0)
                     {
                         result.Objects = new List<object>();
-                        foreach(var obj in query)
+                        foreach (var obj in query)
                         {
-                            ML.Usuario usuario = new ML.Usuario();
-                            usuario.IdUsuario = obj.IdUsuario;
-                            usuario.UserName = obj.UserName;
-                            usuario.Nombre = obj.Nombre;
-                            usuario.ApellidoPaterno = obj.ApellidoPaterno;
-                            usuario.ApellidoMaterno = obj.ApellidoMaterno;
-                            usuario.Email = obj.Email;
-                            usuario.Password = obj.Password;
-                            usuario.Sexo = obj.Sexo;
-                            usuario.Telefono = obj.Telefono;
-                            usuario.Celular = obj.Celular;
-                            usuario.FechaNacimiento = obj.FechaNacimiento;
-                            usuario.CURP = obj.CURP;
-                            usuario.Rol = new ML.Rol();
-                            usuario.Rol.IdRol = obj.IdRol;
+                            ML.Usuario usuario = new ML.Usuario
+                            {
+                                IdUsuario = obj.IdUsuario,
+                                UserName = obj.UserName,
+                                Nombre = obj.NombreUsuario,
+                                ApellidoPaterno = obj.ApellidoPaterno,
+                                ApellidoMaterno = obj.ApellidoMaterno,
+                                Email = obj.Email,
+                                Password = obj.Password,
+                                Sexo = obj.Sexo,
+                                Telefono = obj.Telefono,
+                                Celular = obj.Celular,
+                                FechaNacimiento = obj.FechaNacimiento,
+                                CURP = obj.CURP,
+                                Rol = new ML.Rol()
+                                {
+                                    IdRol = obj.IdRol,
+                                    Nombre = obj.NombreRol
+                                }
+                            };
+
                             result.Objects.Add(usuario);
                         }
                         result.Correct = true;
-                    } 
+                    }
                     else
                     {
                         result.Correct = false;
                         result.ErrorMessage = "No se pudieron obtener los usuarios";
                     }
                 }
-            } catch(Exception ex)
+            } catch (Exception ex)
             {
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
@@ -545,95 +557,104 @@ namespace BL
             {
                 using (RMarianoProgramacionNCapasEntities context = new RMarianoProgramacionNCapasEntities())
                 {
-                    
+
 
                     var query = (from usuario in context.Usuarios where usuario.IdUsuario == IdUsuario
                                  join direccion in context.Direccions
                                  on usuario.IdUsuario equals direccion.IdUsuario into direcciones
                                  from direccion in direcciones.DefaultIfEmpty()
 
-                                 join colonia in context.Colonias 
+                                 join rol in context.Rols
+                                 on usuario.IdRol equals rol.IdRol into roles
+                                 from rol in roles.DefaultIfEmpty()
+
+                                 join colonia in context.Colonias
                                  on direccion.IdColonia equals colonia.IdColonia into colonias
                                  from colonia in colonias.DefaultIfEmpty()
 
-                                 join municipio in context.Municipios 
+                                 join municipio in context.Municipios
                                  on colonia.IdMunicipio equals municipio.IdMunicipio into municipios
                                  from municipio in municipios.DefaultIfEmpty()
 
-                                 join estado in context.Estadoes 
+                                 join estado in context.Estadoes
                                  on municipio.IdEstado equals estado.IdEstado into estados
                                  from estado in estados.DefaultIfEmpty()
-                                 
+
                                  select new
                                  {
-                                    usuario,
-                                    direccion,
-                                    colonia,
-                                    municipio,
-                                    estado
+                                     usuario,
+                                     rol,
+                                     direccion,
+                                     colonia,
+                                     municipio,
+                                     estado
                                  }).FirstOrDefault();
-                    if (query.usuario != null)
+                    if (query != null)
                     {
-                        ML.Usuario usuario = new ML.Usuario
+                        if (query.usuario != null)
                         {
-                            IdUsuario = query.usuario.IdUsuario,
-                            UserName = query.usuario.UserName,
-                            Nombre = query.usuario.Nombre,
-                            ApellidoPaterno = query.usuario.ApellidoPaterno,
-                            ApellidoMaterno = query.usuario.ApellidoMaterno,
-                            Email = query.usuario.Email,
-                            Password = query.usuario.Password,
-                            Sexo = query.usuario.Sexo?.Trim(),
-                            Telefono = query.usuario.Telefono,
-                            Celular = query.usuario.Celular,
-                            FechaNacimiento = query.usuario.FechaNacimiento,
-                            CURP = query.usuario.CURP,
-                            Rol = new ML.Rol()
+                            ML.Usuario usuario = new ML.Usuario
                             {
-                                IdRol = query.usuario.IdRol
-                            },
-                            ImagenUsuario = new ML.ImagenUsuario(),
-                            Direccion = new ML.Direccion
-                            {
-                                Colonia = new ML.Colonia
+                                IdUsuario = query.usuario.IdUsuario,
+                                UserName = query.usuario.UserName,
+                                Nombre = query.usuario.Nombre,
+                                ApellidoPaterno = query.usuario.ApellidoPaterno,
+                                ApellidoMaterno = query.usuario.ApellidoMaterno,
+                                Email = query.usuario.Email,
+                                Password = query.usuario.Password,
+                                Sexo = query.usuario.Sexo?.Trim(),
+                                Telefono = query.usuario.Telefono,
+                                Celular = query.usuario.Celular,
+                                FechaNacimiento = query.usuario.FechaNacimiento,
+                                CURP = query.usuario.CURP,
+                                Rol = new ML.Rol()
                                 {
-                                    Colonias = new List<object>(),
-                                    Municipio = new ML.Municipio
+                                    IdRol = query.rol.IdRol,
+                                    Nombre = query.rol.Nombre
+                                },
+                                ImagenUsuario = new ML.ImagenUsuario(),
+                                Direccion = new ML.Direccion
+                                {
+                                    Colonia = new ML.Colonia
                                     {
-                                        Municipios = new List<object>(),
-                                        Estado = new ML.Estado
+                                        Colonias = new List<object>(),
+                                        Municipio = new ML.Municipio
                                         {
-                                            Estados = new List<object>()
+                                            Municipios = new List<object>(),
+                                            Estado = new ML.Estado
+                                            {
+                                                Estados = new List<object>()
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                        };
-                        if (query.direccion != null)
-                        {
-                            usuario.Direccion = new ML.Direccion
+                            };
+                            if (query.direccion != null)
                             {
-                                IdDireccion = query.direccion.IdDireccion,
-                                Calle = query.direccion.Calle,
-                                NumeroExterior = query.direccion.NumeroExterior,
-                                NumeroInterior = query.direccion.NumeroInterior,
-                                Colonia = new ML.Colonia
+                                usuario.Direccion = new ML.Direccion
                                 {
-                                    IdColonia = query.colonia.IdColonia,
-                                    Municipio = new ML.Municipio
+                                    IdDireccion = query.direccion.IdDireccion,
+                                    Calle = query.direccion.Calle,
+                                    NumeroExterior = query.direccion.NumeroExterior,
+                                    NumeroInterior = query.direccion.NumeroInterior,
+                                    Colonia = new ML.Colonia
                                     {
-                                        IdMunicipio = query.municipio.IdMunicipio,
-                                        Estado = new ML.Estado
+                                        IdColonia = query.colonia.IdColonia,
+                                        Municipio = new ML.Municipio
                                         {
-                                            IdEstado = query.estado.IdEstado
+                                            IdMunicipio = query.municipio.IdMunicipio,
+                                            Estado = new ML.Estado
+                                            {
+                                                IdEstado = query.estado.IdEstado
+                                            }
                                         }
                                     }
-                                }
-                            };
+                                };
+                            }
+                            result.Object = usuario;
+                            result.Correct = true;
                         }
-                        result.Object = usuario;
-                        result.Correct = true;
                     }
                     else
                     {
@@ -652,7 +673,7 @@ namespace BL
         public static ML.Result AddLinq(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
- 
+
             try
             {
                 using (RMarianoProgramacionNCapasEntities context = new RMarianoProgramacionNCapasEntities())
@@ -673,7 +694,7 @@ namespace BL
                         CURP = usuario.CURP,
                         IdRol = usuario.Rol.IdRol,
                     };
-                    
+
                     context.Usuarios.Add(usuarioEF);
                     int NoFilas = context.SaveChanges();
                     if (NoFilas > 0)
@@ -729,6 +750,11 @@ namespace BL
                             result.Correct = false;
                         }
                     }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontro el usuario";
+                    }
                 }
             }
             catch (Exception ex)
@@ -746,8 +772,8 @@ namespace BL
                 using (RMarianoProgramacionNCapasEntities context = new RMarianoProgramacionNCapasEntities())
                 {
                     var usuario = (from u in context.Usuarios
-                                 where u.IdUsuario == IdUsuario
-                                 select u).First();
+                                   where u.IdUsuario == IdUsuario
+                                   select u).First();
                     context.Usuarios.Remove(usuario);
                     int NoFilas = context.SaveChanges();
                     result.Correct = NoFilas > 0;
@@ -756,9 +782,129 @@ namespace BL
             catch (Exception ex)
             {
                 result.Correct = false;
-                result.ErrorMessage=ex.Message;
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }
+        //Metodo asincrono
+        public static async Task<ML.Result> GetAllUsuariosAsync()
+        {
+            ML.Result resultGetAll = new ML.Result();
+            var apiBaseUrl = "http://localhost:50/RWebAPI/api/usuario/GetAll";
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiBaseUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        resultGetAll.Objects = new List<object>();
+                        string content = await response.Content.ReadAsStringAsync();
+                        List<ML.Usuario> usuarios = JsonConvert.DeserializeObject<List<ML.Usuario>>(content);
+                        foreach (ML.Usuario usuario in usuarios)
+                        {
+                            resultGetAll.Objects.Add(usuario);
+                        }
+                        resultGetAll.Correct = true;
+                    }
+                    else
+                    {
+                        resultGetAll.ErrorMessage = "No se obtuvo el resultado";
+                        resultGetAll.Correct = false;
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    resultGetAll.Ex = ex;
+                    resultGetAll.ErrorMessage = ex.Message;
+                }
+            }
+            return resultGetAll;
+        }
+        public static ML.Result GetAllREST()
+        {
+            ML.Result resultGetAll = new ML.Result();
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLapi"]);
+
+                    var responseTask = client.GetAsync("GetAll");
+
+                    responseTask.Wait(); //abrir otro hilo
+
+                    var resultServicio = responseTask.Result;
+
+                    if (resultServicio.IsSuccessStatusCode)
+                    {
+                        var readTask = resultServicio.Content.ReadAsAsync<List<object>>();
+                        readTask.Wait();
+                        resultGetAll.Objects = new List<object>();
+                        foreach (var resultItem in readTask.Result)
+                        {
+                            ML.Usuario usuario = JsonConvert.DeserializeObject<ML.Usuario>(resultItem.ToString());
+                            resultGetAll.Objects.Add(usuario);
+                        }
+                        resultGetAll.Correct = true;
+                    }
+                    else
+                    {
+                        resultGetAll.ErrorMessage = "No se obtuvo el resultado";
+                        resultGetAll.Correct = false;
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                resultGetAll.Ex = ex;
+                resultGetAll.ErrorMessage = ex.Message;
+            }
+            return resultGetAll;
+        }
+
+        public static ML.Result GetByIdREST(int IdUsuario)
+        {
+            ML.Result resultGetById = new ML.Result();
+            try 
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLapi"]);
+
+                    var responseTask = client.GetAsync("?IdUsuario=" + IdUsuario);
+
+                    responseTask.Wait(); //abrir otro hilo
+
+                    HttpResponseMessage resultServicio = responseTask.Result;
+
+                    if (resultServicio.IsSuccessStatusCode)
+                    {
+                        var readTask = resultServicio.Content.ReadAsAsync<object>();
+                        readTask.Wait();
+                        ML.Usuario usuario = JsonConvert.DeserializeObject<ML.Usuario>(readTask.Result.ToString());
+                        resultGetById.Object = usuario;
+                        resultGetById.Correct = true;
+                    }
+                    else
+                    {
+                        resultGetById.ErrorMessage = "No se obtuvo el resultado";
+                        resultGetById.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultGetById.Correct = false;
+                resultGetById.ErrorMessage = ex.Message;
+                resultGetById.Ex = ex;
+            }
+            return resultGetById;
+        }
+
     }
 }

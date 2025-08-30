@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PL
 {
@@ -254,7 +253,6 @@ namespace PL
                 Console.WriteLine($"Celular: {usuario.Celular}");
                 Console.WriteLine($"FechaNacimiento: {usuario.FechaNacimiento}");
                 Console.WriteLine($"CURP: {usuario.CURP}");
-                Console.WriteLine($"IdRol: {usuario.Rol.IdRol}");
                 Console.WriteLine($"NombreRol: {usuario.Rol.Nombre}");
 
                 Console.WriteLine("---------------------------\n");
@@ -266,7 +264,6 @@ namespace PL
             }
 
         }
-
         public static void ProbarLambdas()
         {
             BL.Lambdas.Funciones.GetResults();
