@@ -17,7 +17,7 @@ namespace SL_WebAPI.Controllers
                 ML.Result resultGetAll = BL.Usuario.GetAllLinq();
                 if (resultGetAll.Correct)
                 {
-                    return Content(HttpStatusCode.OK, resultGetAll.Objects);
+                    return Content(HttpStatusCode.OK, resultGetAll);
                 }
                 else
                 {
@@ -43,7 +43,7 @@ namespace SL_WebAPI.Controllers
                 ML.Result resultGetById = BL.Usuario.GetByIdLinq(IdUsuario);
                 if (resultGetById.Correct)
                 {
-                    return Content(HttpStatusCode.OK, resultGetById.Object);
+                    return Content(HttpStatusCode.OK, resultGetById);
                 }
                 return Content(HttpStatusCode.ExpectationFailed, resultGetById.ErrorMessage);
             }
@@ -59,7 +59,7 @@ namespace SL_WebAPI.Controllers
                 ML.Result resultAdd = BL.Usuario.AddLinq(usuario);
                 if (resultAdd.Correct)
                 {
-                    return Content(HttpStatusCode.OK, "Usuario agregado correctamente");
+                    return Content(HttpStatusCode.OK, resultAdd);
                 }
                 return Content(HttpStatusCode.ExpectationFailed, resultAdd.ErrorMessage);
             }
@@ -78,7 +78,7 @@ namespace SL_WebAPI.Controllers
                 ML.Result resultUpdate = BL.Usuario.UpdateLinq(usuario);
                 if (resultUpdate.Correct)
                 {
-                    return Content(HttpStatusCode.OK, "Usuario actualizado correctamente");
+                    return Content(HttpStatusCode.OK, resultUpdate);
                 }
                 return Content(HttpStatusCode.ExpectationFailed, resultUpdate.ErrorMessage);
             }
@@ -97,7 +97,7 @@ namespace SL_WebAPI.Controllers
                 ML.Result resultDelete = BL.Usuario.DeleteLinq(IdUsuario);
                 if (resultDelete.Correct)
                 {
-                    return Content(HttpStatusCode.OK, "Usuario eliminado correctamente");
+                    return Content(HttpStatusCode.OK, resultDelete);
                 }
                 return Content(HttpStatusCode.ExpectationFailed, resultDelete.ErrorMessage);
             }

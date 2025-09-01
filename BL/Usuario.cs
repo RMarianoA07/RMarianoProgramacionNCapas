@@ -866,7 +866,6 @@ namespace BL
             }
             return resultGetAll;
         }
-
         public static ML.Result GetByIdREST(int IdUsuario)
         {
             ML.Result resultGetById = new ML.Result();
@@ -906,5 +905,36 @@ namespace BL
             return resultGetById;
         }
 
+        public static ML.Result AddREST(ML.Usuario usuario)
+        {
+            ML.Result resultAdd = new ML.Result();
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLapi"]);
+                    var response = client.PostAsJsonAsync("",usuario);
+                    response.Wait();
+                    var result = response.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        resultAdd.Correct = true;
+                        resultAdd.Object = result.Content.ToString();
+                    }
+                    else
+                    {
+                        resultAdd.Correct = false;
+                        resultAdd.Ex = response.Exception;
+                        resultAdd.ErrorMessage = result.RequestMessage.Content.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultAdd.ErrorMessage = ex.Message;
+                resultAdd.Ex = ex;
+            }
+            return resultAdd;
+        }
     }
 }

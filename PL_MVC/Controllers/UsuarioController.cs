@@ -120,7 +120,7 @@ namespace PL_MVC.Controllers
             {
                 if (usuario.IdUsuario == 0)
                 {
-                    ML.Result result = BL.Usuario.AddLinq(usuario);
+                    ML.Result result = BL.Usuario.AddREST(usuario);
                     if (result.Correct)
                     {
                         usuario.ImagenUsuario = new ML.ImagenUsuario();
