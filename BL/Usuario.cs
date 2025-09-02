@@ -1,5 +1,4 @@
 ﻿using DL_EF;
-using ML;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -943,7 +942,7 @@ namespace BL
                     {
                         resultAdd.Correct = false;
                         resultAdd.Ex = response.Exception;
-                        resultAdd.ErrorMessage = result.RequestMessage.Content.ToString();
+                        resultAdd.ErrorMessage = response.Exception.Message;
                     }
                 }
             }
