@@ -52,6 +52,7 @@ namespace SL_WebAPI.Controllers
 
         // POST api/values
         [HttpPost]
+        [Route("Add")]
         public IHttpActionResult Add([FromBody] ML.Usuario usuario)
         {
             try
@@ -71,6 +72,7 @@ namespace SL_WebAPI.Controllers
 
         // PUT api/values/5
         [HttpPut]
+        [Route("Update")]
         public IHttpActionResult Update([FromBody] ML.Usuario usuario)
         {
             try
@@ -90,6 +92,7 @@ namespace SL_WebAPI.Controllers
 
         // DELETE api/values/5
         [HttpDelete]
+        [Route("Delete")]
         public IHttpActionResult Delete(int IdUsuario)
         {
             try

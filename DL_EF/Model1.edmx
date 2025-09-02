@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RMarianoProgramacionNCapasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RMarianoProgramacionNCapasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__EFMigrationsHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -317,8 +317,7 @@ warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' do
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RMarianoProgramacionNCapasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -546,7 +545,7 @@ warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' do
             <End Role="Usuario" EntitySet="Usuarios" />
           </AssociationSet>
           <FunctionImport Name="ColoniaGetByIdMunicipio" ReturnType="Collection(RMarianoProgramacionNCapasModel.ColoniaGetByIdMunicipio_Result)">
-            <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
+          <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DireccionAdd">
             <Parameter Name="Calle" Mode="In" Type="String" />
@@ -556,7 +555,7 @@ warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' do
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DireccionGetByIdUsuario" ReturnType="Collection(RMarianoProgramacionNCapasModel.DireccionGetByIdUsuario_Result)">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DireccionUpdate">
             <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
@@ -568,7 +567,7 @@ warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' do
           </FunctionImport>
           <FunctionImport Name="EstadoGetAll" ReturnType="Collection(RMarianoProgramacionNCapasModel.EstadoGetAll_Result)" />
           <FunctionImport Name="MunicipioGetByIdEstado" ReturnType="Collection(RMarianoProgramacionNCapasModel.MunicipioGetByIdEstado_Result)">
-            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+          <Parameter Name="IdEstado" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioAdd">
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -585,7 +584,7 @@ warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' do
             <Parameter Name="IdRol" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioDelete">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(RMarianoProgramacionNCapasModel.UsuarioGetAll_Result)">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -606,7 +605,7 @@ warning 6002: The table/view 'RMarianoProgramacionNCapas.dbo.VWUsuarioGetAll' do
             <Parameter Name="IdRol" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="UsuarioGetById" ReturnType="Collection(RMarianoProgramacionNCapasModel.UsuarioGetById_Result)">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioUpdate">
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />

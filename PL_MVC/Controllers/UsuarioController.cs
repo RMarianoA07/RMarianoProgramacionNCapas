@@ -1,11 +1,6 @@
-﻿using ML;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,18 +29,8 @@ namespace PL_MVC.Controllers
         public ActionResult Delete(int IdUsuario)
         {
             ML.Result resultImages = BL.ImagenUsuario.DeleteByUser(IdUsuario);
-            if (resultImages.Correct)
-            {
-                ML.Result resultDireccion = BL.Direccion.DeleteByIdUsuario(IdUsuario);
-                if (resultDireccion.Correct)
-                {
-                    ML.Result resultUsuario = BL.Usuario.DeleteLinq(IdUsuario);
-                    if (resultUsuario.Correct)
-                    {
-                        TempData["Mensaje"] = "¡El usuario fue eliminado correctamente!";
-                    }
-                }
-            }
+            ML.Result resultDireccion = BL.Direccion.DeleteByIdUsuario(IdUsuario);
+            ML.Result resultUsuario = BL.Usuario.DeleteREST(IdUsuario);
 
             return RedirectToAction("GetAll");
         }
@@ -144,7 +129,11 @@ namespace PL_MVC.Controllers
                 }
                 else
                 {
-                    BL.Usuario.UpdateLinq(usuario);
+                    ML.Result resultUpdate = BL.Usuario.UpdateREST(usuario);
+                    if (resultUpdate.Correct)
+                    {
+                        TempData["Mensaje"] = "¡Usuario actualizado correctamente!";
+                    }
                     if (usuario.Direccion.IdDireccion > 0)
                     {
                         BL.Direccion.Update(usuario);
@@ -161,7 +150,6 @@ namespace PL_MVC.Controllers
                         }
                         Session.Remove("ListaImagenes");
                     }
-                    TempData["Mensaje"] = "¡Usuario actualizado correctamente!";
                 }
             } else
             {

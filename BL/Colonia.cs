@@ -26,7 +26,8 @@ namespace BL
                             {
                                 IdColonia = coloniaDB.IdColonia,
                                 Nombre = coloniaDB.Nombre,
-                                IdMunicipio = coloniaDB.IdMunicipio.Value
+                                IdMunicipio = coloniaDB.IdMunicipio.Value,
+                                CodigoPostal = coloniaDB.CodigoPostal
                             };
                             result.Objects.Add(colonia);
                         }

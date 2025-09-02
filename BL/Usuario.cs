@@ -841,15 +841,27 @@ namespace BL
 
                     if (resultServicio.IsSuccessStatusCode)
                     {
-                        var readTask = resultServicio.Content.ReadAsAsync<List<object>>();
+                        var readTask = resultServicio.Content.ReadAsAsync<ML.Result>();
                         readTask.Wait();
-                        resultGetAll.Objects = new List<object>();
-                        foreach (var resultItem in readTask.Result)
+                        var result = readTask.Result;
+                        if (result.Correct)
                         {
-                            ML.Usuario usuario = JsonConvert.DeserializeObject<ML.Usuario>(resultItem.ToString());
-                            resultGetAll.Objects.Add(usuario);
+                            resultGetAll.Objects = new List<object>();
+                            if(readTask.Result.Objects.Count > 0)
+                            {
+                                foreach (var resultItem in readTask.Result.Objects)
+                                {
+                                    ML.Usuario usuario = JsonConvert.DeserializeObject<ML.Usuario>(resultItem.ToString());
+                                    resultGetAll.Objects.Add(usuario);
+                                }
+                                resultGetAll.Correct = true;
+                            }
                         }
-                        resultGetAll.Correct = true;
+                        else
+                        {
+                            resultGetAll.Correct = false;
+                        }
+                            
                     }
                     else
                     {
@@ -883,9 +895,9 @@ namespace BL
 
                     if (resultServicio.IsSuccessStatusCode)
                     {
-                        var readTask = resultServicio.Content.ReadAsAsync<object>();
+                        var readTask = resultServicio.Content.ReadAsAsync<ML.Result>();
                         readTask.Wait();
-                        ML.Usuario usuario = JsonConvert.DeserializeObject<ML.Usuario>(readTask.Result.ToString());
+                        ML.Usuario usuario = JsonConvert.DeserializeObject<ML.Usuario>(readTask.Result.Object.ToString());
                         resultGetById.Object = usuario;
                         resultGetById.Correct = true;
                     }
@@ -913,13 +925,19 @@ namespace BL
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLapi"]);
-                    var response = client.PostAsJsonAsync("",usuario);
+                    var response = client.PostAsJsonAsync("Add",usuario);
                     response.Wait();
                     var result = response.Result;
+                    
                     if (result.IsSuccessStatusCode)
                     {
-                        resultAdd.Correct = true;
-                        resultAdd.Object = result.Content.ToString();
+                        var readTask = result.Content.ReadAsAsync<ML.Result>();
+                        readTask.Wait();
+                        if (readTask.Result.Correct)
+                        {
+                            resultAdd.Correct = true;
+                            resultAdd.Object = Convert.ToInt32(readTask.Result.Object);
+                        }
                     }
                     else
                     {
@@ -935,6 +953,72 @@ namespace BL
                 resultAdd.Ex = ex;
             }
             return resultAdd;
+        }
+        public static ML.Result DeleteREST(int IdUsuario)
+        {
+            ML.Result resultDelete = new ML.Result();
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLapi"]);
+                    var response = client.DeleteAsync("Delete?IdUsuario=" + IdUsuario);
+                    response.Wait();
+                    if (response.Result.IsSuccessStatusCode)
+                    {
+                        resultDelete.Correct = true;
+                    }
+                    else
+                    {
+                        resultDelete.Correct = false;
+                        resultDelete.ErrorMessage = response.Exception.Message;
+                    }
+                }
+
+            }
+            catch (Exception ex) 
+            {
+                resultDelete.Ex = ex;
+                resultDelete.ErrorMessage = ex.Message;
+            }
+            return resultDelete;
+        }
+
+        public static ML.Result UpdateREST(ML.Usuario usuario)
+        {
+            ML.Result resultUpdate = new ML.Result();
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLapi"]);
+                    var response = client.PutAsJsonAsync("Update", usuario);
+                    response.Wait();
+                    var result = response.Result;
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsAsync<ML.Result>();
+                        readTask.Wait();
+                        if (readTask.Result.Correct)
+                        {
+                            resultUpdate.Correct = true;
+                        }
+                    }
+                    else
+                    {
+                        resultUpdate.Correct = false;
+                        resultUpdate.Ex = response.Exception;
+                        resultUpdate.ErrorMessage = result.RequestMessage.Content.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultUpdate.ErrorMessage = ex.Message;
+                resultUpdate.Ex = ex;
+            }
+            return resultUpdate;
         }
     }
 }
